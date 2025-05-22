@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fms4end</title>
+</head>
+<body>
+  <h1>結果</h1>
+  <div id="total-score">總分數: </div>
+  <button id="retry-button">再一次</button>
+  <button id="submitBtn">提交結果到資料庫</button>
+
+  <script>
+    // 從 LocalStorage 獲取 fmsScore
+    const fmsScore = localStorage.getItem('fmsScore');
+    
+    // 確保有分數才顯示
+    document.getElementById('total-score').innerText = fmsScore ? `總分數: ${fmsScore} 分` : '尚未計算分數';
+
+    // 提交按鈕事件
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      // 構造傳送資料的物件
+      const data = {
+        sport_ID: 'FMS4', // 先預設 sport_ID 為 FMS4
+        total_record: parseInt(fmsScore), // 總分數
+        record_time: new Date().toISOString() // 紀錄時間
+      };
+
+      // 使用 Fetch API 發送 POST 請求到後端
+      fetch('record.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.text())
+      .then(result => {
+        alert('資料已成功提交！');
+        console.log(result);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  </script>
+
+  <script>
+    let retryCount = 0;
+
+    document.getElementById('retry-button').addEventListener('click', function () {
+      retryCount++;
+
+      if (retryCount <= 2) {
+        window.location.href = 'FMS4.html';  // 回到 FMS4.html
+      }
+
+      if (retryCount === 2) {
+        this.style.display = 'none';  // 第三次按下按鈕後消失
+      }
+    });
+  </script>
+</body>
+</html>
