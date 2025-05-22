@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Body Angles</title>
+    <style>
+        .angle-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .angle-container img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .angle-text {
+            position: absolute;
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #left-arm-angle {
+            top: 50px;
+            left: 20px;
+        }
+
+        #right-arm-angle {
+            top: 50px;
+            right: 20px;
+        }
+
+        #bottom-angle {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #knee-angle {
+            bottom: 50px;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="angle-container">
+        <img src="human-body.png" alt="Human body position">
+        <div id="left-arm-angle" class="angle-text">Left Arm: 0°</div>
+        <div id="right-arm-angle" class="angle-text">Right Arm: 0°</div>
+        <div id="bottom-angle" class="angle-text">Bottom: 0°</div>
+        <div id="knee-angle" class="angle-text">Knee: 0°</div>
+    </div>
+
+</body>
+</html>

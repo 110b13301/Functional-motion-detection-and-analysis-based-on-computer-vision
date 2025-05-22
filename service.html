@@ -1,0 +1,332 @@
+<!doctype html>
+
+
+<html lang="en">
+  <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="GYm,fitness,business,company,agency,multipurpose,modern,bootstrap4">
+  
+  <meta name="author" content="Themefisher.com">
+
+  <title>動作總覽</title>
+
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icofont Css -->
+  <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+  <!-- Themify Css -->
+  <link rel="stylesheet" href="plugins/themify/css/themify-icons.css">
+  <!-- animate.css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Magnify Popup -->
+  <link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<!-- Header Start -->
+<nav class="navbar navbar-expand-lg navigation fixed-top" id="navbar" style="background-color: black;">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="index.html">
+			<h2 class="text-color text-capitalize"></i>CV<span class="text-white">FMS</span></h2>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsid"
+			aria-controls="navbarsid" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="ti-view-list"></span>
+		</button>
+		<div class="collapse text-center navbar-collapse" id="navbarsid">
+			<ul class="navbar-nav mx-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="service.html">動作總覽</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">運動專區</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="squart.html">深蹲</a></li>
+						<li><a class="dropdown-item" href="FMS2step.html">跨欄</a></li>
+						<li><a class="dropdown-item" href="FMS3inline.html">直線前蹲</a></li>
+						<li><a class="dropdown-item" href="FMS4shoulder.html">肩部活動</a></li>
+						<li><a class="dropdown-item" href="FMS5active.html">主動直膝抬腿</a></li>
+						<li><a class="dropdown-item" href="FMS6trunk.html">軀幹穩定伏地挺身</a></li>
+						<li><a class="dropdown-item" href="FMS7rotary.html">旋轉穩定性</a></li>
+					</ul>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">歷史紀錄</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="historyfms1.php">深蹲紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms2.php">跨欄紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms3.php">直線前蹲紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms4.php">肩部活動紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms5.php">主動直膝抬腿紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms6.php">軀幹穩定伏地挺身紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms7.php">旋轉穩定性紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms8.php">總歷史紀錄</a></li>
+					</ul>
+				</li>
+	
+
+			</ul>
+			<p style="color: aliceblue;" id="username-display"></p>
+			<div id="profile-icon-container" style="display: none;">
+				<a href="modify.php">
+					
+				  <img src="person.png" alt="Profile" class="profile-icon" width=50dp>
+				</a>
+			  </div>
+			  <div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+				<a id="auth-link" href="login.html">
+				  <h3 class="text-color mb-0" id="auth-text">登入</h3>
+				</a>
+			  </div>
+			</div>
+	</div>
+</nav>
+
+<!-- 之後要加入 -->
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	  // Function to set a cookie
+	  function setCookie(name, value, days) {
+		const d = new Date();
+		d.setTime(d.getTime() + (days*24*60*60*1000));
+		let expires = "expires=" + d.toUTCString();
+		document.cookie = name + "=" + value + ";" + expires + ";path=/";
+	  }
+	
+	  // Function to get a cookie
+	  function getCookie(name) {
+		let cname = name + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+		  let c = ca[i];
+		  while (c.charAt(0) === ' ') {
+			c = c.substring(1);
+		  }
+		  if (c.indexOf(cname) === 0) {
+			return c.substring(cname.length, c.length);
+		  }
+		}
+		return "";
+	  }
+	
+	  // Function to delete a cookie
+	  function deleteCookie(name) {
+		document.cookie = name + '=; Max-Age=-99999999;';
+	  }
+	
+	  // Update the login status based on the cookie
+	  function updateWelcomeMessage() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const username = urlParams.get('username');
+
+		if (username) {
+		  document.getElementById("username-display").innerText = "歡迎, " + decodeURIComponent(username) + "!";
+		}
+	  }
+	  function updateLoginStatus() {
+		const isLoggedIn = getCookie("isLoggedIn") === "true";
+		const authText = document.getElementById('auth-text');
+		const profileIconContainer = document.getElementById('profile-icon-container');
+		const authLink = document.getElementById('auth-link');
+	
+		if (isLoggedIn) {
+		  authText.textContent = '登出';
+		  profileIconContainer.style.display = 'block';
+		  authLink.setAttribute('href', 'logout.php');
+		} else {
+		  authText.textContent = '登入';
+		  profileIconContainer.style.display = 'none';
+		  authLink.setAttribute('href', 'login.html');
+		}
+	  }
+	
+	  // Simulate login for testing (in real scenario, login form will set this cookie on server-side)
+	  function login() {
+		setCookie("isLoggedIn", "true", 1); // sets cookie for 1 day
+		updateLoginStatus();
+		const username = "yourUsername"; // 获取实际用户名
+		setCookie("username", username, 1); // 设置 Cookie，有效期 1 天
+		updateWelcomeMessage();
+	  }
+	
+	  // Simulate logout
+	  function logout() {
+		deleteCookie("isLoggedIn");
+		updateLoginStatus();
+		deleteCookie("username");
+		updateWelcomeMessage();
+	  }
+	  updateWelcomeMessage();
+	  // Check and update the login status on page load
+	  updateLoginStatus();
+	
+	  // Example: If you want to simulate a login/logout button, you could add event listeners:
+	  document.getElementById('auth-link').addEventListener('click', function(event) {
+		if (getCookie("isLoggedIn") === "true") {
+		  logout();
+		}
+	  });
+	});
+	</script>
+
+
+<!-- Header Close -->
+
+
+<div class="main-wrapper ">
+<section class="page-title bg-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="index.html" class="text-sm letter-spacing text-white text-uppercase font-weight-bold">首頁</a></li>
+            <li class="list-inline-item"><span class="text-white">|</span></li>
+            <li class="list-inline-item"><a href="#" class="text-color text-uppercase text-sm letter-spacing">動作總覽</a></li>
+          </ul>
+           <h1 class="text-lg text-white mt-2">電腦視覺之FMS</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section About start -->
+<section class="section services">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-8 text-center">
+				<div class="section-title">
+					<div class="divider mb-3"></div>
+					<h2>動作總覽</h2>
+					<p class="mt-3">電腦視覺之FMS是評估一個人的基本運動模式工具，根據人體的動作模式及動作控制設計檢測動作，其目的是在不同情形下，辨識人體動作的功能限制</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back-1.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4><b>深蹲</b></h4>
+				   <p>執行深蹲需要踝關節背屈的閉鎖式動力鏈、髖與膝關節屈曲、胸椎伸展及肩關節外展。</p>
+					<a href="squart.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				   
+				  </div>
+				
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back-2.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4 ><b>跨欄</b></h4>
+				   <p>進行跨欄需要站立腿的踝、膝、髖關節穩定度的能力及跨步腿的踝關節背屈及髖、膝關節的屈曲。</p>
+				   <a href="FMS2step.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				  </div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back-3.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4><b>直線前蹲</b></h4>
+				   <p>需要站立腿的踝、膝、髖關節穩定性，以及跨步腿的髖關節外展、踝背屈和股直肌柔軟度，並適當平衡側向力的實施。</p>
+					<a href="FMS3inline.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				   
+				  </div>
+				
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back - 4.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4 ><b>肩部活動</b></h4>
+				   <p>進行肩關節活動需要肩關節移動力包括肩外展與肩外旋、肩屈與肩伸、肩內收與肩內旋，還需要肩胛骨與胸椎的移動性。</p>
+				   <a href="FMS4shoulder.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				  </div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back -5.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4 ><b>主動直膝抬腿</b></h4>
+				   <p>需要腿後肌柔軟度。表現不佳，可能有功能性腿後肌柔軟度不佳，或是相反腿的髖關節移動性不足引起髂腰肌僵硬與骨盆前傾狀態。</p>
+				   <a href="FMS5active.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				  </div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back - 6.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4><b>軀幹穩定伏地挺身</b></h4>
+				   <p>執行伏地挺身需要有對稱上肢運動及在矢狀面對稱軀幹的穩定性。表現不佳簡單地歸因於軀幹的穩定性差。 </p>
+					<a href="FMS6trunk.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				   
+				  </div>
+				
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="media align-items-center mb-4">
+				  <img src="images/bg/back - 7.jpg" class="mr-3 w-50" alt="...">
+
+				  <div class="media-body">
+				    <h4 ><b>旋轉穩定性</b></h4>
+				   <p>旋轉穩定測試需要在不對稱上下肢的動作中矢狀面軀幹不對稱穩定性。表現不佳簡單地歸納是軀幹的非對稱穩定性較不佳。 </p>
+				   <a href="FMS7rotary.html" class="btn-2 btn-main">了解更多<i class="fa fa-angle-right ml-2"></i></a>
+				  </div>
+				</div>
+			</div>
+
+		
+		</div>
+	</div>
+</section>
+<!-- Section About End -->
+   </div>
+
+   <!-- 
+    Essential Scripts
+    =====================================-->
+
+
+   <!-- Main jQuery -->
+   <script src="plugins/jquery/jquery.js"></script>
+   <!-- Bootstrap 4.3.1 -->
+   <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+   <!-- Slick Slider -->
+   <script src="plugins/slick-carousel/slick/slick.min.js"></script>
+   <!--  Magnific Popup-->
+   <script src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+   <!-- Form Validator -->
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+   <!-- Google Map -->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+   <script src="plugins/google-map/gmap.js"></script>
+
+   <script src="js/script.js"></script>
+
+   </body>
+
+   </html>

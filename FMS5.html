@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="GYm,fitness,business,company,agency,multipurpose,modern,bootstrap4">
+  <meta name="author" content="Themefisher.com">
+
+  <title>主動直膝抬腿檢測</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
+
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+  <link rel="stylesheet" href="plugins/themify/css/themify-icons.css">
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="./style.css" rel="stylesheet">
+  
+  <style>
+    .info-panel {
+      position: absolute;
+      left: 30px;
+      top: 100px;
+      background-color: black;
+      color: white;
+      padding: 10px;
+      font-size: 40px;
+      font-family: Arial, sans-serif;
+      z-index: 1;
+      width: 420px; 
+      word-wrap: break-word; /* 換行 */
+    }
+    .info-panel div {
+      margin-bottom: 10px;
+    }
+  </style>
+      <style>
+        /* 模態彈窗樣式 */
+        .modal {
+            display: none; /* 預設隱藏 */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #demoimage {
+            width: 100%; /* 設置圖片寬度為容器寬度 */
+            z-index: 1; /* 設置較低層級，顯示在背景 */
+        }
+			#info-display {
+				
+				width: 420px; /* 根據圖片大小設置寬度 */
+			}
+
+        	/* 角度資訊的區域 */
+			#angle-info {
+				position: absolute;
+				width: 95%;
+				background-color: rgba(0, 0, 0, 0.5); /* 半透明背景 */
+				color: white;
+				padding: 10px;
+				z-index: 2; /* 設為較高的層級，顯示在圖片上方 */
+				text-align: left;
+				font-size: 14px;
+			}
+  
+
+    </style>
+  
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navigation fixed-top" id="navbar" style="background-color: black;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+      <h2 class="text-color text-capitalize"></i>CV<span class="text-white">FMS</span></h2>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsid"
+        aria-controls="navbarsid" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="ti-view-list"></span>
+      </button>
+      <div class="collapse text-center navbar-collapse" id="navbarsid">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="service.html">動作總覽</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">運動專區</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="squart.html">深蹲</a></li>
+              <li><a class="dropdown-item" href="FMS2step.html">跨欄</a></li>
+              <li><a class="dropdown-item" href="FMS3inline.html">直線前蹲</a></li>
+              <li><a class="dropdown-item" href="FMS4shoulder.html">肩部活動</a></li>
+              <li><a class="dropdown-item" href="FMS5active.html">主動直膝抬腿</a></li>
+              <li><a class="dropdown-item" href="FMS6trunk.html">軀幹穩定伏地挺身</a></li>
+              <li><a class="dropdown-item" href="FMS7rotary.html">旋轉穩定性</a></li>
+            </ul>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">歷史紀錄</a>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="historyfms1.php">深蹲紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms2.php">跨欄紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms3.php">直線前蹲紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms4.php">肩部活動紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms5.php">主動直膝抬腿紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms6.php">軀幹穩定伏地挺身紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms7.php">旋轉穩定性紀錄</a></li>
+            <li><a class="dropdown-item" href="historyfms8.php">總歷史紀錄</a></li>
+            </ul>
+          </li>
+    
+  
+        </ul>
+        <div id="profile-icon-container" style="display: none;">
+          <a href="modify.php">
+             <img src="person.png" alt="Profile" class="profile-icon"width=50dp>
+          </a>
+         </div>
+        <div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+          <a id="auth-link" href="login.html">
+            <h3 class="text-color mb-0" id="auth-text">登入</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<!-- 之後要加入 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      function updateLoginStatus(isLoggedIn) {
+          const authText = document.getElementById('auth-text');
+          const profileIconContainer = document.getElementById('profile-icon-container');
+  
+          if (isLoggedIn) {
+              authText.textContent = '登出';
+              profileIconContainer.style.display = 'block';
+              authText.onclick = function() {
+                  // 執行登出邏輯，例如清除 session 並重新載入頁面
+                  window.location.href = 'logout.php';
+              };
+          } else {
+              authText.textContent = '登入';
+              profileIconContainer.style.display = 'none';
+          }
+      }
+  
+      //檢查登入狀態的函數
+      function checkLoginStatus() {
+          const isLoggedIn = true; 
+          updateLoginStatus(isLoggedIn);
+      }
+  
+      checkLoginStatus();
+  });
+    </script>
+
+<!-- 之後要加入 -->
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	  // Function to set a cookie
+	  function setCookie(name, value, days) {
+		const d = new Date();
+		d.setTime(d.getTime() + (days*24*60*60*1000));
+		let expires = "expires=" + d.toUTCString();
+		document.cookie = name + "=" + value + ";" + expires + ";path=/";
+	  }
+	
+	  // Function to get a cookie
+	  function getCookie(name) {
+		let cname = name + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+		  let c = ca[i];
+		  while (c.charAt(0) === ' ') {
+			c = c.substring(1);
+		  }
+		  if (c.indexOf(cname) === 0) {
+			return c.substring(cname.length, c.length);
+		  }
+		}
+		return "";
+	  }
+	
+	  // Function to delete a cookie
+	  function deleteCookie(name) {
+		document.cookie = name + '=; Max-Age=-99999999;';
+	  }
+	//待改
+    function updateWelcomeMessage() {
+    const username = getCookie("username");
+    if (username) {
+      document.getElementById("username-display").innerText = "歡迎, " + decodeURIComponent(username) + "!";
+    }
+  }
+	  function updateLoginStatus() {
+		const isLoggedIn = getCookie("isLoggedIn") === "true";
+		const authText = document.getElementById('auth-text');
+		const profileIconContainer = document.getElementById('profile-icon-container');
+		const authLink = document.getElementById('auth-link');
+	
+		if (isLoggedIn) {
+		  authText.textContent = '登出';
+		  profileIconContainer.style.display = 'block';
+		  authLink.setAttribute('href', 'logout.php');
+		} else {
+		  authText.textContent = '登入';
+		  profileIconContainer.style.display = 'none';
+		  authLink.setAttribute('href', 'login.html');
+		}
+	  }
+	
+	  // Simulate login for testing (in real scenario, login form will set this cookie on server-side)
+	  function login() {
+		setCookie("isLoggedIn", "true", 1); // sets cookie for 1 day
+		updateLoginStatus();
+		const username = "admin"; // 获取实际用户名//待改
+		setCookie("username", username, 1); // 设置 Cookie，有效期 1 天
+		updateWelcomeMessage();
+	  }
+	
+	  // Simulate logout
+	  function logout() {
+		deleteCookie("isLoggedIn");
+		updateLoginStatus();
+		deleteCookie("username");
+		updateWelcomeMessage();
+	  }
+	  updateWelcomeMessage();
+	  // Check and update the login status on page load
+	  updateLoginStatus();
+	
+	  // Example: If you want to simulate a login/logout button, you could add event listeners:
+	  document.getElementById('auth-link').addEventListener('click', function(event) {
+		if (getCookie("isLoggedIn") === "true") {
+		  logout();
+		}
+	  });
+	});
+	</script>
+	
+<!-- Header Close -->
+
+<div class="main-wrapper ">
+
+<div class="main-wrapper">
+  <section id="demos">
+    <br><br>
+    <div id="liveView" class="videoView">
+      <div style="transform: rotateY">
+        <video class="input_video" style="display:none;"></video>
+        <center>
+          <div id="start-message" style="color: gray; margin-top: 10px;">請點擊按鈕開始</div>
+        </center>
+        <center><canvas class="output_canvas" width="960" height="540"></canvas></center>
+        <div id="modal" class="modal" style="display: none;">
+          <div class="modal-content">
+            <b>
+              <h3 class="new">檢測結束，請點擊查看評分</h3>
+              <br>
+            </b>
+            <button class="btn btn-main" id="confirm-button">查看</button>
+          </div>
+        </div>
+        <center>
+              <!-- <button id="cancel-button">否</button> -->
+          </div>
+      </div>
+
+        <center>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <button id="start-button" class="btn btn-main" onclick="toggleDetection()">開始檢測 <i class="ti-angle-right ml-3"></i></button>
+
+          </div>
+        </center>
+        <script>
+            function toggleDetection() {
+              // 隱藏按鈕
+              var button = document.getElementById("start-button");
+              button.style.display = "none"; // 隱藏開始檢測按鈕
+
+              // 隱藏提示訊息
+              var message = document.getElementById("start-message");
+              message.style.display = "none";
+            }
+        </script>
+      </div> 
+    </div>
+  </section>
+</div>
+
+<div id="info-display" class="info-panel">
+  <div id="task-info"></div>
+  <div id="step-info"></div>
+  <div id="record-info"></div>
+  <div id="right-leg-angle"></div>
+  <div id="left-leg-angle"></div>
+  <img id="demoimage" src="Demo picture/bone0.png" alt="圖片">
+</div>
+
+
+
+
+
+
+<script src="plugins/jquery/jquery.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/slick-carousel/slick/slick.min.js"></script>
+<script src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+<script src="plugins/google-map/gmap.js"></script>
+<script src="js/FMS5.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js" crossorigin="anonymous"></script>
+<script type="module" src="./script.js"></script>
+</body>
+</html>

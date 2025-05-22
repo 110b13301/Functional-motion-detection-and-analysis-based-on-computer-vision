@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>登出</title>
+  </head>
+  <body>
+
+  <script>
+    // 清除 Local Storage 中的登入狀態
+    localStorage.removeItem('loggedIn');
+    
+    // 重定向回首頁
+    window.location.href = 'index.html';
+  </script>
+
+  </body>
+</html>

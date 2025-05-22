@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="GYm,fitness,business,company,agency,multipurpose,modern,bootstrap4">
+  <meta name="author" content="Themefisher.com">
+
+  <title>GymFit| Fitness template</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
+
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icofont Css -->
+  <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+  <!-- Themify Css -->
+  <link rel="stylesheet" href="plugins/themify/css/themify-icons.css">
+  <!-- animate.css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Magnify Popup -->
+  <link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link href="./style.css" rel="stylesheet">
+  
+  <style>
+    .info-panel {
+      position: absolute;
+      left: 30px;
+      top: 250px;
+      background-color: black;
+      color: white;
+      padding: 10px;
+      font-size: 40px;
+      font-family: Arial, sans-serif;
+      z-index: 1;
+    }
+
+    .info-panel div {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header Start -->
+<nav class="navbar navbar-expand-lg navigation fixed-top" id="navbar">
+  <div style="background-color: black;" class="container-fluid">
+    <a class="navbar-brand" href="index.html">
+      <h2 class="text-color text-capitalize"></i>F<span class="text-white">MS</span></h2>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsid"
+      aria-controls="navbarsid" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="ti-view-list"></span>
+    </button>
+    <div class="collapse text-center navbar-collapse" id="navbarsid">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="service.html">動作總覽</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">運動專區</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="squart.html">深蹲</a></li>
+            <li><a class="dropdown-item" href="FMS2step.html">跨欄</a></li>
+            <li><a class="dropdown-item" href="FMS3inline.html">直線前蹲</a></li>
+            <li><a class="dropdown-item" href="FMS4shoulder.html">肩部活動</a></li>
+            <li><a class="dropdown-item" href="FMS5active.html">主動直膝抬腿</a></li>
+            <li><a class="dropdown-item" href="FMS6trunk.html">軀幹穩定伏地挺身</a></li>
+            <li><a class="dropdown-item" href="FMS7rotary.html">旋轉穩定性</a></li>
+          </ul>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">歷史紀錄</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="blog.html">深蹲紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-sidebar.html">跨欄紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">直線前蹲紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">肩部活動紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">直線前蹲紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">主動直膝抬腿紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">軀幹穩定伏地挺身紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">旋轉穩定性紀錄</a></li>
+            <li><a class="dropdown-item" href="blog-single.html">總歷史紀錄</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+        <a href="login.html">
+          <h3 class="text-color mb-0">登入</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Header Close -->
+
+<div class="main-wrapper">
+  <section id="demos">
+    <br><br>
+    <h2>環境確認</h2>
+    <div id="liveView" class="videoView">
+      <div style="transform: rotateY">
+        <video class="input_video" style="display:none;"></video>
+        <!-- 提示消息 -->
+        <center><div id="start-message" style="color: gray; margin-top: 10px;">請點擊按鈕開始</div></center>
+        <center><canvas class="output_canvas" width="960" height="540"></canvas></center>
+        <script src="script.js"></script>
+
+        
+        <!-- 修改後的按鈕 -->
+        <center>
+          <button id="start-button" class="btn btn-main" onclick="toggleDetection()">開始檢測<i class="ti-angle-right ml-3"></i></button>
+        </center>
+        <script>
+          function toggleDetection() {
+            // 隱藏按鈕
+            var button = document.getElementById("start-button");
+            button.style.display = "none"; // 隱藏開始檢測按鈕
+
+            // 隱藏提示訊息
+            var message = document.getElementById("start-message");
+            message.style.display = "none";
+          }
+      </script>
+      </div> 
+    </div>
+  </section>
+</div>
+
+<div id="info-display" class="info-panel">
+  <div id="task-info"></div>
+  <div id="angle-info">  
+    <div id="left-arm-angle">Left Arm Angle: 0</div>
+    <div id="right-arm-angle">Right Arm Angle: 0</div>
+    <div id="score">Score: 0</div>
+  </div>
+</div>
+
+<!-- Essential Scripts -->
+<script src="plugins/jquery/jquery.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/slick-carousel/slick/slick.min.js"></script>
+<script src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="plugins/google-map/gmap.js"></script>
+<script src="js/scriptcross.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Pose Detection and Recording</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
+  <style>
+    video, canvas {
+      display: block;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <button id="start-button">開始檢測</button>
+  <button id="start-recording">開始錄影</button>
+  <button id="stop-recording">停止錄影</button>
+  <p id="task-info"></p>
+  <p id="left-arm-angle"></p>
+  <p id="right-arm-angle"></p>
+  <p id="recording-status"></p>
+  <video class="input_video" autoplay></video>
+  <canvas class="output_canvas" width="640" height="480"></canvas>
+
+  <script>
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+
+    const pose = new Pose({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
+    });
+
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      enableSegmentation: false,
+      smoothSegmentation: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+
+    pose.onResults(onResults);
+
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await pose.send({ image: videoElement });
+      },
+      width: 640,
+      height: 480
+    });
+    camera.start();
+
+    let mediaRecorder;
+    let recordedChunks = [];
+
+    let startTime = null;
+    const requiredDuration = 3000; // 持續時間為3秒
+    let taskCompleted = false;
+    let bufferTimeStart = null; // 用于记录缓冲时间的开始
+    let taskCounter = 0; // 累次計次
+
+    // 定义任务列表
+    const tasks = ['站在紅框中', '90度', '180度', '深蹲', '90度'];
+    let currentTaskIndex = 0;
+
+    // 标志位，检测是否已经开始
+    let isDetectionStarted = false;
+
+    // 获取按钮并添加点击事件监听器
+    document.getElementById('start-button').addEventListener('click', function () {
+      isDetectionStarted = true;
+      currentTaskIndex = 0; // 重置任务索引
+      startTime = null; // 重置开始时间
+      taskCounter = 0; // 重置计次
+      document.getElementById('task-info').innerHTML = '請站在紅框中測試環境';
+    });
+
+    document.getElementById('start-recording').addEventListener('click', function () {
+      startRecording();
+      document.getElementById('recording-status').textContent = '錄影中...';
+    });
+
+    document.getElementById('stop-recording').addEventListener('click', function () {
+      stopRecording();
+      document.getElementById('recording-status').textContent = '錄影已停止';
+    });
+
+    function startRecording() {
+      recordedChunks = [];
+      let stream = canvasElement.captureStream(60); // 60 FPS
+      mediaRecorder = new MediaRecorder(stream, {
+        mimeType: 'video/mp4;codecs=vp9'
+      });
+
+      mediaRecorder.ondataavailable = function(event) {
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = function() {
+        let blob = new Blob(recordedChunks, {
+          type: 'video/mp4'
+        });
+        let url = URL.createObjectURL(blob);
+        let a = document.createElement('a');
+        document.body.appendChild(a);
+        a.style = 'display: none';
+        a.href = url;
+        a.download = 'pose-detection.mp4';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+
+      mediaRecorder.start();
+    }
+
+    function stopRecording() {
+      mediaRecorder.stop();
+    }
+
+    function onResults(results) {
+      if (!isDetectionStarted) {
+        // 如果检测未开始，直接返回
+        return;
+      }
+
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+      // 畫紅框
+      const boxX = canvasElement.width / 3;
+      const boxY = canvasElement.height / 15;
+      const boxWidth = (canvasElement.width / 2) - 100;
+      const boxHeight = (canvasElement.height / 2) + 200;
+
+      canvasCtx.strokeStyle = 'red';
+      canvasCtx.lineWidth = 4;
+      canvasCtx.strokeRect(boxX, boxY, boxWidth, boxHeight);
+
+      // 保留提示文字
+      const currentTask = tasks[currentTaskIndex];
+      const textY = 20;
+      if (currentTask === '站在紅框中') {
+        document.getElementById('task-info').innerHTML = '請站在紅框中測試環境';
+      } else if (currentTask === '90度') {
+        document.getElementById('task-info').innerHTML = '請手保持90度3秒鐘';
+      } else if (currentTask === '180度') {
+        document.getElementById('task-info').innerHTML = '請手保持180度3秒鐘';
+      } else if (currentTask === '深蹲') {
+        document.getElementById('task-info').innerHTML = '手保持180度，請向下蹲到最低點3秒鐘';
+      }
+
+      if (results.poseLandmarks) {
+        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+        drawLandmarks(canvasCtx, results.poseLandmarks, { color: '#FF0000', lineWidth: 2 });
+
+        const leftShoulder = results.poseLandmarks[11];
+        const leftElbow = results.poseLandmarks[13];
+        const leftWrist = results.poseLandmarks[15];
+        const rightShoulder = results.poseLandmarks[12];
+        const rightElbow = results.poseLandmarks[14];
+        const rightWrist = results.poseLandmarks[16];
+
+        const leftHip = results.poseLandmarks[23];
+        const rightHip = results.poseLandmarks[24];
+        const leftKnee = results.poseLandmarks[25];
+        const rightKnee = results.poseLandmarks[26];
+
+        const leftArmAngle = calculateAngle(leftShoulder, leftElbow, leftWrist);
+        const rightArmAngle = calculateAngle(rightShoulder, rightElbow, rightWrist);
+
+        console.log(`Left Arm Angle: ${leftArmAngle}`);
+        console.log(`Right Arm Angle: ${rightArmAngle}`);
+
+        canvasCtx.font = "20px Arial";
+        canvasCtx.fillStyle = "white";
+
+        document.getElementById('left-arm-angle').textContent = `Left Arm Angle: ${leftArmAngle.toFixed(2)}`;
+        document.getElementById('right-arm-angle').textContent = `Right Arm Angle: ${rightArmAngle.toFixed(2)}`;
+
+        let angleCheck = false;
+        let squatCheck = false;
+
+        if (currentTask === '90度') {
+          angleCheck = (leftArmAngle >= 80 && leftArmAngle <= 100) && (rightArmAngle >= 80 && rightArmAngle <= 100);
+        } else if (currentTask === '180度') {
+          angleCheck = (leftArmAngle >= 165 && leftArmAngle <= 195) && (rightArmAngle >= 165 && rightArmAngle <= 195);
+        } else if (currentTask === '深蹲') {
+          angleCheck = (leftArmAngle >= 165 && leftArmAngle <= 195) && (rightArmAngle >= 165 && rightArmAngle <= 195);
+          squatCheck = (leftHip.y > leftKnee.y) && (rightHip.y > rightKnee.y);
+        }
+
+        // 檢查關鍵點是否在紅框內
+        let allPointsInside = results.poseLandmarks.every(point =>
+          point.x * canvasElement.width >= boxX &&
+          point.x * canvasElement.width <= boxX + boxWidth &&
+          point.y * canvasElement.height >= boxY &&
+          point.y * canvasElement.height <= boxY + boxHeight
+        );
+
+        if (allPointsInside || currentTask === '站起來') {
+          let checkCondition = false;
+          if (currentTask === '站在紅框中') {
+            checkCondition = true;
+          } else if (currentTask === '90度' || currentTask === '180度' || currentTask === '深蹲') {
+            checkCondition = currentTask === '深蹲' ? (angleCheck && squatCheck) : angleCheck;
+          } else if (currentTask === '站起來') {
+            const standingUpCheck = leftHip.y < leftKnee.y && rightHip.y < rightKnee.y;
+            checkCondition = standingUpCheck;
+          }
+
+          if (checkCondition) {
+            if (startTime === null) {
+              startTime = new Date().getTime(); // 記錄開始時間
+            }
+            const currentTime = new Date().getTime();
+            const elapsedTime = currentTime - startTime;
+
+            if (elapsedTime >= requiredDuration) {
+              document.getElementById('task-info').innerHTML = '完成';
+              if (bufferTimeStart === null) {
+                bufferTimeStart = currentTime; // 记录缓冲时间开始
+              } else if (currentTime - bufferTimeStart >= 2000) { // 2秒缓冲时间
+                taskCompleted = true;
+                currentTaskIndex++;
+                if (currentTaskIndex >= tasks.length) {
+                  taskCounter++; // 增加計次
+                  currentTaskIndex = 1; // 重置任务索引到90度任务
+                }
+                startTime = null; // 重置開始時間
+                bufferTimeStart = null; // 重置缓冲时间
+              }
+            } else {
+              document.getElementById('task-info').innerHTML = '請保持不動';
+            }
+          } else {
+            startTime = null; // 重置開始時間
+            bufferTimeStart = null; // 重置缓冲时间
+          }
+        } else {
+          drawTextWithBackground(canvasCtx, '請整個人都在紅框中', canvasElement.width / 2, canvasElement.height / 2, "red", "black");
+          startTime = null; // 重置開始時間
+          bufferTimeStart = null; // 重置缓冲时间
+        }
+      }
+      drawTextWithBackground(canvasCtx, `計次: ${taskCounter}`, canvasElement.width - 100, 40, "white", "black");
+      canvasCtx.restore();
+    }
+
+    function calculateAngle(a, b, c) {
+      const radians = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x);
+      let angle = Math.abs(radians * 180.0 / Math.PI);
+      if (angle > 180.0) {
+        angle = 360.0 - angle;
+      }
+      return angle;
+    }
+
+    function drawTextWithBackground(ctx, text, x, y, textColor, backgroundColor) {
+      
+      ctx.font = "50px Arial";
+      const padding = 10;
+      const metrics = ctx.measureText(text);
+      const textWidth = metrics.width;
+      const textHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(x - textWidth / 2 - padding / 2, y - textHeight / 2 - padding / 2, textWidth + padding, textHeight + padding);
+
+      ctx.fillStyle = textColor;
+      ctx.fillText(text, x - textWidth / 2, y + textHeight / 4);
+    }
+  </script>
+</body>
+</html>

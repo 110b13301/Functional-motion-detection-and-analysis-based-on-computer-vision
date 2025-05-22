@@ -1,0 +1,266 @@
+<!doctype html>
+
+
+<html lang="en">
+  <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="GYm,fitness,business,company,agency,multipurpose,modern,bootstrap4">
+  
+  <meta name="author" content="Themefisher.com">
+
+  <title>肩部活動教學</title>
+
+  <!-- bootstrap.min css -->
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Icofont Css -->
+  <link rel="stylesheet" href="plugins/icofont/icofont.min.css">
+  <!-- Themify Css -->
+  <link rel="stylesheet" href="plugins/themify/css/themify-icons.css">
+  <!-- animate.css -->
+  <link rel="stylesheet" href="plugins/animate-css/animate.css">
+  <!-- Magnify Popup -->
+  <link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick.css">
+  <link rel="stylesheet" href="plugins/slick-carousel/slick/slick-theme.css">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<!-- Header Start -->
+<nav class="navbar navbar-expand-lg navigation fixed-top" id="navbar"style="background-color: black;">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="index.html">
+			<h2 class="text-color text-capitalize"></i>CV<span class="text-white">FMS</span></h2>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsid"
+			aria-controls="navbarsid" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="ti-view-list"></span>
+		</button>
+		<div class="collapse text-center navbar-collapse" id="navbarsid">
+			<ul class="navbar-nav mx-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index.html">首頁 <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="service.html">動作總覽</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">運動專區</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="squart.html">深蹲</a></li>
+						<li><a class="dropdown-item" href="FMS2step.html">跨欄</a></li>
+						<li><a class="dropdown-item" href="FMS3inline.html">直線前蹲</a></li>
+						<li><a class="dropdown-item" href="FMS4shoulder.html">肩部活動</a></li>
+						<li><a class="dropdown-item" href="FMS5active.html">主動直膝抬腿</a></li>
+						<li><a class="dropdown-item" href="FMS6trunk.html">軀幹穩定伏地挺身</a></li>
+						<li><a class="dropdown-item" href="FMS7rotary.html">旋轉穩定性</a></li>
+					</ul>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">歷史紀錄</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="historyfms1.php">深蹲紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms2.php">跨欄紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms3.php">直線前蹲紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms4.php">肩部活動紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms5.php">主動直膝抬腿紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms6.php">軀幹穩定伏地挺身紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms7.php">旋轉穩定性紀錄</a></li>
+						<li><a class="dropdown-item" href="historyfms8.php">總歷史紀錄</a></li>
+					</ul>
+				</li>
+	
+
+			</ul>
+			<p style="color: aliceblue;" id="username-display"></p>
+			<div id="profile-icon-container" style="display: none;">
+				<a href="modify.php">
+					
+				  <img src="person.png" alt="Profile" class="profile-icon" width=50dp>
+				</a>
+			  </div>
+			  <div class="my-md-0 ml-lg-4 mt-4 mt-lg-0 ml-auto text-lg-right mb-3 mb-lg-0">
+				<a id="auth-link" href="login.html">
+				  <h3 class="text-color mb-0" id="auth-text">登入</h3>
+				</a>
+			  </div>
+			</div>
+	</div>
+</nav>
+
+<!-- 之後要加入 -->
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+	  // Function to set a cookie
+	  function setCookie(name, value, days) {
+		const d = new Date();
+		d.setTime(d.getTime() + (days*24*60*60*1000));
+		let expires = "expires=" + d.toUTCString();
+		document.cookie = name + "=" + value + ";" + expires + ";path=/";
+	  }
+	
+	  // Function to get a cookie
+	  function getCookie(name) {
+		let cname = name + "=";
+		let decodedCookie = decodeURIComponent(document.cookie);
+		let ca = decodedCookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+		  let c = ca[i];
+		  while (c.charAt(0) === ' ') {
+			c = c.substring(1);
+		  }
+		  if (c.indexOf(cname) === 0) {
+			return c.substring(cname.length, c.length);
+		  }
+		}
+		return "";
+	  }
+	
+	  // Function to delete a cookie
+	  function deleteCookie(name) {
+		document.cookie = name + '=; Max-Age=-99999999;';
+	  }
+	
+	  // Update the login status based on the cookie
+	  function updateWelcomeMessage() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const username = urlParams.get('username');
+
+		if (username) {
+		  document.getElementById("username-display").innerText = "歡迎, " + decodeURIComponent(username) + "!";
+		}
+	  }
+	  function updateLoginStatus() {
+		const isLoggedIn = getCookie("isLoggedIn") === "true";
+		const authText = document.getElementById('auth-text');
+		const profileIconContainer = document.getElementById('profile-icon-container');
+		const authLink = document.getElementById('auth-link');
+	
+		if (isLoggedIn) {
+		  authText.textContent = '登出';
+		  profileIconContainer.style.display = 'block';
+		  authLink.setAttribute('href', 'logout.php');
+		} else {
+		  authText.textContent = '登入';
+		  profileIconContainer.style.display = 'none';
+		  authLink.setAttribute('href', 'login.html');
+		}
+	  }
+	
+	  // Simulate login for testing (in real scenario, login form will set this cookie on server-side)
+	  function login() {
+		setCookie("isLoggedIn", "true", 1); // sets cookie for 1 day
+		updateLoginStatus();
+		const username = "yourUsername"; // 获取实际用户名
+		setCookie("username", username, 1); // 设置 Cookie，有效期 1 天
+		updateWelcomeMessage();
+	  }
+	
+	  // Simulate logout
+	  function logout() {
+		deleteCookie("isLoggedIn");
+		updateLoginStatus();
+		deleteCookie("username");
+		updateWelcomeMessage();
+	  }
+	  updateWelcomeMessage();
+	  // Check and update the login status on page load
+	  updateLoginStatus();
+	
+	  // Example: If you want to simulate a login/logout button, you could add event listeners:
+	  document.getElementById('auth-link').addEventListener('click', function(event) {
+		if (getCookie("isLoggedIn") === "true") {
+		  logout();
+		}
+	  });
+	});
+	</script>
+	
+
+
+
+<!-- Header Close -->
+
+<div class="main-wrapper ">
+<section class="page-title bg-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="index.html" class="text-sm letter-spacing text-white text-uppercase font-weight-bold">首頁</a></li>
+            <li class="list-inline-item"><span class="text-white">|</span></li>
+            <li class="list-inline-item"><a href="#" class="text-color text-uppercase text-sm letter-spacing">運動專區</a></li>
+          </ul>
+           <h1 class="text-lg text-white mt-2">肩部活動</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Section Blog start -->
+<section class="section blog bg-gray">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-9 col-md-12">
+				<div class="row">
+					<div class="col-lg-12">
+						<iframe width="830" height="500" src="https://www.youtube.com/embed/FyB8UtECCRA?si=Rclcdzd4b0n_iFQ0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	<p class="mt-4">...........</p>
+    <div class="media mb-4">
+		<div class="media-body">
+            <h4>步驟:</h4>
+			<p>1.測量慣用手中靠近手掌的腕橫紋到中指之間的距離<br>
+               2.雙腳並攏，雙臂自然下垂，拇指握在拳頭裡，頭朝前，軀幹挺直<br>
+               3.將雙拳方在背後，盡可能讓雙拳在脊椎位置相互靠近<br>
+               4.測量最近的兩點間的距離<br>
+               5.左右兩側都要進行測試<br>
+               6.總共分別有3次嘗試機會，並取最好的一次評分<br>
+            </p>
+		</div>
+	</div>
+	<blockquote class="blockquote p-4 bg-white text-black font-italic my-5">
+		3分:雙拳之間的距離應小於一個手掌的長度。<br>
+    2分:雙拳之間的距離小於一個半手掌的長度。<br>
+    1分:雙拳之間的距離大於一個半手掌的長度。<br>
+    0分:在執行動作的過程中感到疼痛。
+	</blockquote>
+
+    <center><a href="FMS4.html" target="_blank" class="btn btn-main " >開始檢測 <i class="ti-angle-right ml-3"></i></a></center>
+
+
+
+	
+</div>
+
+   </div>
+
+   <!-- 
+    Essential Scripts
+    =====================================-->
+
+
+   <!-- Main jQuery -->
+   <script src="plugins/jquery/jquery.js"></script>
+   <!-- Bootstrap 4.3.1 -->
+   <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+   <!-- Slick Slider -->
+   <script src="plugins/slick-carousel/slick/slick.min.js"></script>
+   <!--  Magnific Popup-->
+   <script src="plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+   <!-- Form Validator -->
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+   <!-- Google Map -->
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+   <script src="plugins/google-map/gmap.js"></script>
+
+   <script src="js/script.js"></script>
+
+   </body>
+
+   </html>
